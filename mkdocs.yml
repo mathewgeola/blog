@@ -1,0 +1,4 @@
+site_name: blog
+site_url: https://github.com/mathewgeola/blog
+theme:
+  name: material
