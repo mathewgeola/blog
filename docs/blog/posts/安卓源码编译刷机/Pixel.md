@@ -116,3 +116,21 @@ apt install git -y
 git config --global user.name "mathewgeola"
 git config --global user.email "mathewgeola@gmail.com"
 ~~~
+
+#### 编译
+
+~~~bash
+apt install curl -y
+
+mkdir ~/bin
+PATH=~/bin:$PATH
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+
+cd /home/ubuntu/Desktop
+mkdir WORKING_DIRECTORY
+cd WORKING_DIRECTORY
+
+repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b android-8.0.0_r28 --repo-url=https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+repo sync -j16
+~~~
