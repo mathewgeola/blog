@@ -62,5 +62,57 @@ Pixel.vmdk
 
 ### ubuntu 配置
 
+#### 修改 root 密码
+
 ~~~bash
+ubuntu
+
+sudo passwd root
+ubuntu
+root
+root
+
+whoami
+
+su
+root
+whoami
+~~~
+
+#### 修改时区
+
+~~~bash
+dpkg-reconfigure tzdata
+
+# Asia => Shanghai
+~~~
+
+#### 修改息屏时间
+
+~~~
+Settings => Power => Power Saving => Blank screen [Never]
+~~~
+
+#### 修改 history length
+
+~~~bash
+apt install vim -y
+
+vim .bashrc
+################################################################################
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000000
+HISTFILESIZE=2000000
+################################################################################
+
+reboot
+~~~
+
+#### git 配置
+
+~~~bash
+apt install git -y
+
+git config --global user.name "mathewgeola"
+git config --global user.email "mathewgeola@gmail.com"
 ~~~
