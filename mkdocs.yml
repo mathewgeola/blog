@@ -16,7 +16,8 @@ plugins:
       blog_toc: true
       archive_date_format: "yyyy年MM月"
       categories_allowed:
-        - 安卓源码编译刷机
+        - AOSP
+        - Ubuntu
         - Holidays
         - News
       authors_profiles: true
