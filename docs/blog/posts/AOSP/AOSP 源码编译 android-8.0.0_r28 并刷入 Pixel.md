@@ -33,10 +33,51 @@ https://releases.ubuntu.com/20.04/ubuntu-20.04.6-desktop-amd64.iso.torrent
 https://releases.ubuntu.com/20.04/ubuntu-20.04.6-desktop-amd64.iso
 
 510ce77afcb9537f198bc7daa0e5b503b6e67aaed68146943c231baeaab94df1 *ubuntu-20.04.6-desktop-amd64.iso
+
 >certutil -hashfile ubuntu-20.04.6-desktop-amd64.iso SHA256
 SHA256 的 ubuntu-20.04.6-desktop-amd64.iso 哈希:
 510ce77afcb9537f198bc7daa0e5b503b6e67aaed68146943c231baeaab94df1
 CertUtil: -hashfile 命令成功完成。
+~~~
+
+### 资源下载
+
+~~~
+Source code tags and builds
+https://source.android.com/docs/setup/reference/build-numbers#source-code-tags-and-builds
+
+Build ID            Tag	                Version	    Supported devices	        Security patch level
+OPR1.170623.032	    android-8.0.0_r28	Oreo	    Pixel XL, Pixel, Pixel C	2017-11-05
+
+-----------------------------------------------------------------------------------------------------------------------
+Pixel binaries for Android 8.0.0 (OPR1.170623.032)
+https://developers.google.com/android/drivers#sailfishopr1.170623.032
+
+Hardware Component	                                            Company	            Download	                                                                                                SHA-256 Checksum
+Vendor image	                                                Google	            Link [https://dl.google.com/dl/android/aosp/google_devices-sailfish-opr1.170623.032-edb989ad.tgz]	        529eb245e041b9f480a143186fa9a32a916be37fefb4099a4eb8f21359e6f0b5
+GPS, Audio, Camera, Gestures, Graphics, DRM, Video, Sensors	    Qualcomm	        Link [https://dl.google.com/dl/android/aosp/qcom-sailfish-opr1.170623.032-00212902.tgz]	                    870b4a3defdfab2fb1be012f52b98bc632192865a6f1f04d9d06b06f01452ebb
+
+>certutil -hashfile google_devices-sailfish-opr1.170623.032-edb989ad.tgz SHA256
+SHA256 的 google_devices-sailfish-opr1.170623.032-edb989ad.tgz 哈希:
+529eb245e041b9f480a143186fa9a32a916be37fefb4099a4eb8f21359e6f0b5
+CertUtil: -hashfile 命令成功完成。
+
+>certutil -hashfile qcom-sailfish-opr1.170623.032-00212902.tgz SHA256
+SHA256 的 qcom-sailfish-opr1.170623.032-00212902.tgz 哈希:
+870b4a3defdfab2fb1be012f52b98bc632192865a6f1f04d9d06b06f01452ebb
+CertUtil: -hashfile 命令成功完成。
+
+-----------------------------------------------------------------------------------------------------------------------
+"sailfish" for Pixel
+https://developers.google.com/android/images#sailfish
+
+Version	                                            Download	                                                                                        SHA-256 Checksum
+8.0.0 (OPR1.170623.032, Nov 2017, Fi/Canada)	    Link [https://dl.google.com/dl/android/aosp/sailfish-opr1.170623.032-factory-e011ef43.zip]	        e011ef434ae32e24f14c19d83a859ed76a156209ba4552c393af38f5b1f3efd6
+
+-----------------------------------------------------------------------------------------------------------------------
+
+certutil -hashfile sailfish-opr1.170623.032-factory-e011ef43.zip SHA256
+
 ~~~
 
 ### VMware Workstation 配置
@@ -370,6 +411,9 @@ repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b 
 
 repo sync
 repo sync -j16
+Syncing: 100% (568/568), done in 30m23.265s
+Checking for bloat: 100% (48/48), done in 58.724s
+repo sync has finished successfully.
 ~~~
 
 ### 编译源码
