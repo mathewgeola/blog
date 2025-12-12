@@ -1,12 +1,44 @@
-site_name: blog
-site_description: an example blog set up following the blog tutorials
+site_name: 博客
+site_description: 博客
 site_url: https://github.com/mathewgeola/
 
 theme:
   name: material
+
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  font:
+    code: Roboto Mono
+
+  direction: ltr
+
   language: zh
+
   features:
     - navigation.indexes
+    - content.code.copy # Code copy button
+    - content.code.select
+    - content.code.annotate
 
 plugins:
   - search:
@@ -17,7 +49,7 @@ plugins:
       archive_date_format: "yyyy年MM月"
       categories_allowed:
         - AOSP
-        - Ubuntu
+        - Platform
         - Holidays
         - News
       authors_profiles: true
@@ -35,8 +67,8 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/mastodon
-      name: squidfunk on Mastodon
-      link: https://fosstodon.org/@squidfunk
+      name: mathewgeola
+      link: mathewgeola@gmail.com
 
 hooks:
   - hooks/socialmedia.py

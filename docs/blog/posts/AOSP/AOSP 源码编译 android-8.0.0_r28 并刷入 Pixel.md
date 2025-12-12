@@ -1,8 +1,22 @@
 ---
 date:
-  created: 2025-12-11
+  created: 2025-12-12
+  updated: 2025-12-12
 categories:
   - AOSP
+authors:
+  - mathewgeola
+pin: true
+readtime: 15
+links:
+  - 博客首页: blog/index.md
+  - 外部链接:
+      - 百度: https://www.baidu.com/
+tags:
+  - android
+  - pixel
+  - aosp
+slug: aosp
 ---
 
 # AOSP 源码编译 android-8.0.0_r28 并刷入 Pixel
@@ -14,14 +28,26 @@ categories:
 ~~~
 https://releases.ubuntu.com/
 
+https://releases.ubuntu.com/20.04/SHA256SUMS
+https://releases.ubuntu.com/20.04/ubuntu-20.04.6-desktop-amd64.iso.torrent
 https://releases.ubuntu.com/20.04/ubuntu-20.04.6-desktop-amd64.iso
+
+510ce77afcb9537f198bc7daa0e5b503b6e67aaed68146943c231baeaab94df1 *ubuntu-20.04.6-desktop-amd64.iso
+>certutil -hashfile ubuntu-20.04.6-desktop-amd64.iso SHA256
+SHA256 的 ubuntu-20.04.6-desktop-amd64.iso 哈希:
+510ce77afcb9537f198bc7daa0e5b503b6e67aaed68146943c231baeaab94df1
+CertUtil: -hashfile 命令成功完成。
 ~~~
 
 ### VMware Workstation 配置
 
 ~~~
+创建新的虚拟机
+
+自定义(高级)(C)
+
 安装程序光盘映像文件(iso)(M):
-D:\data\ubuntu\20.04\ubuntu-20.04.6-desktop-amd64.iso
+D:\data\ubuntu\20.04.6\ubuntu-20.04.6-desktop-amd64.iso
 
 个性化 Linux
     全名(F): ubuntu-20.04.6
@@ -30,51 +56,26 @@ D:\data\ubuntu\20.04\ubuntu-20.04.6-desktop-amd64.iso
 确认(C): ubuntu
 
 虚拟机名称(V):
-AOSP
+AOSP Pixel
 
 位置(L):
-D:\Virtual Machines\AOSP
+D:\Virtual Machines\AOSP Pixel
 
 处理器
-处理器数里(P): 4
+处理器数里(P): 2
 每个处理器的内核数里(C): 4
 
-此虚拟机的内存(M): 16384 MB
+此虚拟机的内存(M): 8192 MB
 
 网络连接
 使用桥接网络(R)
-为客户机操作系统提供直接访问外部以太网网络的权限。客户机在外部网络上必须
-有自己的 IP 地址。
 
-最大磁盘大小(GB)(S): 400
-
-编辑虚拟机设置
-虚拟机设置
-    硬件
-       USB 控制器   连接 USB 兼容性(C): USB 3.1
-    选项
-       共享文件夹 
-            文件夹共享 总是启用
-            
-            文件夹 添加
-                主机路径(H)
-                D:\data\share
-                
-                名称(A)
-                share
-                
-# 虚拟机访问 /mnt/hgfs/share                
+最大磁盘大小(GB)(S): 400            
 ~~~
 
-#### 修改时区
+### ubuntu 配置
 
-~~~bash
-dpkg-reconfigure tzdata
-
-# Asia => Shanghai
-~~~
-
-### ubuntu root 登录
+#### ubuntu 修改 root 密码
 
 ~~~bash
 sudo passwd root
@@ -87,17 +88,18 @@ whoami
 su
 root
 whoami
+~~~
 
-gedit /etc/pam.d/gdm-autologin
-################################################################################
-#auth	required	pam_succeed_if.so user != root quiet_success
-################################################################################
+#### ubuntu root 登录
 
+~~~bash
+# 注释掉 GDM 的 root 限制
 gedit /etc/pam.d/gdm-password
 ################################################################################
 #auth	required	pam_succeed_if.so user != root quiet_success
 ################################################################################
 
+# 修复 root 图形界面闪退的问题
 gedit /root/.profile
 ################################################################################
 #mesg n 2> /dev/null || true
@@ -106,17 +108,25 @@ tty -s && mesg n 2> /dev/null || true
 
 Power Off / Log Out => 
   Log Out
-  
+
 Not listed?
 root
 root
 ~~~
 
-### ubuntu 设置配置
+#### ubuntu 时区修改
+
+~~~bash
+dpkg-reconfigure tzdata
+
+# Asia => Shanghai
+~~~
+
+#### ubuntu 设置配置
 
 ~~~
 Settings => Appearance => Dock
-    icon size [18]
+    icon size [16]
     Position on screen [Bottom]
 
 # 修改息屏时间
@@ -124,11 +134,10 @@ Settings =>  Power => Power Saving =>
     Blank screen [Never]
 ~~~
 
-#### 修改 history length
+#### ubuntu 修改 history length
 
 ~~~bash
-
-vim .bashrc
+gedit .bashrc
 ################################################################################
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000000
@@ -138,7 +147,7 @@ HISTFILESIZE=2000000
 reboot
 ~~~
 
-### ubuntu 换源配置
+#### ubuntu 换源配置
 
 ~~~bash
 gedit /etc/apt/sources.list
@@ -208,28 +217,12 @@ apt update
 #### ubuntu 工具安装
 
 ~~~bash
-apt install htop -y
-
-apt install jnettop -y
-
-apt install curl -y
-
-apt install vim -y
-
-apt install openjdk-8-jdk -y
-
-apt install p7zip-full -y
-
-apt install git -y
-
-apt install net-tools -y
-
-apt install wget -y
+apt install git vim net-tools curl wget htop jnettop p7zip-full -y
 ~~~
 
-### proxychains4 配置
+#### proxychains4 配置
 
-##### 主机配置
+###### 主机配置
 
 ~~~
 # 终端管理员
@@ -237,10 +230,10 @@ netsh advfirewall set allprofiles state off
 netsh advfirewall set allprofiles state on
 
 ipconfig
-192.168.1.3
+192.168.3.150
 ~~~
 
-##### 虚拟机配置配置
+###### 虚拟机配置配置
 
 ~~~bash
 apt install proxychains4 -y
@@ -252,83 +245,48 @@ vim /etc/proxychains4.conf
 # meanwile
 # defaults set to "tor"
 #socks4 	127.0.0.1 9050
-socks5 192.168.1.3 7897
+socks5 192.168.3.150 7897
 ################################################################################
 
 proxychains curl https://www.google.com
 proxychains4 curl ipinfo.io
 ~~~
 
-#### 挂载共享目录
+#### ubuntu java 配置
 
 ~~~bash
-apt install open-vm-tools open-vm-tools-desktop -y
+apt install openjdk-8-jdk -y
 
-mkdir -p /mnt/hgfs
-
-reboot
-
-ls /mnt/hgfs
-
-# 手动挂载
-# vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
-
-# 开机自动挂载
-vim /etc/fstab
-################################################################################
-.host:/ /mnt/hgfs fuse.vmhgfs-fuse defaults,allow_other 0 0
-################################################################################
-mount -a
-
-mkdir ~/Desktop/data
-rsync --progress /mnt/hgfs/share/* ~/Desktop/data
-
-tar -zxvf google_devices-marlin-opr1.170623.032-01ff7129.tgz
-tar -zxvf qcom-marlin-opr1.170623.032-62f4dec7.tgz
-
-mv extract-google_devices-marlin.sh /root/Desktop/WORKING_DIRECTORY
-mv extract-qcom-marlin.sh /root/Desktop/WORKING_DIRECTORY
-
-cd /root/Desktop/WORKING_DIRECTORY
-
-./extract-google_devices-marlin.sh
-I ACCEPT
-
-./extract-qcom-marlin.sh
-I ACCEPT
-~~~
-
-~~~bash
 gedit /etc/java-8-openjdk/security/java.security
 ################################################################################
 # Example:
-#   jdk.tls.disabledAlgorithms=MD5, SSLv3, DSA, RSA keySize < 2048
-#jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
-#    DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, \
-#    ECDH, \
+#   jdk.certpath.disabledAlgorithms=MD2, DSA, RSA keySize < 2048
+#
+#
+#jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
+#    RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224, \
+#    SHA1 usage SignedJAR & denyAfter 2019-01-01, \
 #    include jdk.disabled.namedCurves
-
+   
 jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, \
     DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, \
     include jdk.disabled.namedCurves
 ################################################################################
-
-apt install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig
 ~~~
 
-#### pyenv 配置
+#### ubuntu pyenv 配置
 
 ~~~bash
 proxychains4 bash <(proxychains4 curl -fsSL https://pyenv.run)
 
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /root/.bashrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> /root/.bashrc
+echo 'eval "$(pyenv init - bash)"' >> /root/.bashrc
 
-source ~/.bashrc
+source /root/.bashrc
 
-mkdir ~/.pyenv/cache/
-cd ~/.pyenv/cache/
+mkdir /root/.pyenv/cache/
+cd /root/.pyenv/cache/
       
 proxychains4 wget https://www.python.org/ftp/python/3.6.15/Python-3.6.15.tar.xz
 apt install -y \
@@ -385,11 +343,18 @@ pyenv install 2.7.17
 pyenv versions
 pyenv local 2.7.17
 
-ln -s ~/.pyenv/versions/3.6.15/bin/python /usr/bin/python
-ln -s ~/.pyenv/versions/2.7.17/bin/python /usr/bin/python
+# 下载源码时使用
+ln -s /root/.pyenv/versions/3.6.15/bin/python /usr/bin/python
+
+# 编译源码时使用
+ln -s /root/.pyenv/versions/2.7.17/bin/python /usr/bin/python
 ~~~
 
+### 下载源码
+
 ~~~bash
+ln -s /root/.pyenv/versions/3.6.15/bin/python /usr/bin/python
+
 apt install git -y
 
 git config --global user.name "mathewgeola"
@@ -398,8 +363,88 @@ git config --global user.email "mathewgeola@gmail.com"
 curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo
 chmod a+x /bin/repo
 
-cd ~/Desktop/WORKING_DIRECTORY
+mkdir /root/Desktop/AOSP
+cd /root/Desktop/AOSP
+
 repo init -u https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/platform/manifest -b android-8.0.0_r28 --repo-url=https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+
+repo sync
+repo sync -j16
+~~~
+
+### 编译源码
+
+~~~bash
+# 安装依赖
+apt install git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig
+
+export OUT_DIR=out
+
+source build/envsetup.sh
+
+lunch aosp_sailfish-userdebug
+
+export LC_ALL=C
+make -j16
+~~~
+
+#### 挂载共享目录
+
+~~~bash
+编辑虚拟机设置
+虚拟机设置
+    硬件
+       USB 控制器   连接 USB 兼容性(C): USB 3.1
+    选项
+       共享文件夹 
+            文件夹共享 总是启用
+            
+            文件夹 添加
+                主机路径(H)
+                D:\data\share
+                
+                名称(A)
+                share
+                
+# 虚拟机访问 /mnt/hgfs/share    
+
+apt install open-vm-tools open-vm-tools-desktop -y
+
+mkdir -p /mnt/hgfs
+
+reboot
+
+ls /mnt/hgfs
+
+# 手动挂载
+# vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
+
+# 开机自动挂载
+vim /etc/fstab
+################################################################################
+.host:/ /mnt/hgfs fuse.vmhgfs-fuse defaults,allow_other 0 0
+################################################################################
+mount -a
+
+mkdir ~/Desktop/data
+rsync --progress /mnt/hgfs/share/* ~/Desktop/data
+
+tar -zxvf google_devices-marlin-opr1.170623.032-01ff7129.tgz
+tar -zxvf qcom-marlin-opr1.170623.032-62f4dec7.tgz
+
+mv extract-google_devices-marlin.sh /root/Desktop/WORKING_DIRECTORY
+mv extract-qcom-marlin.sh /root/Desktop/WORKING_DIRECTORY
+
+cd /root/Desktop/WORKING_DIRECTORY
+
+./extract-google_devices-marlin.sh
+I ACCEPT
+
+./extract-qcom-marlin.sh
+I ACCEPT
+~~~
+
+~~~bash
 
 repo sync -j16 --fail-fast
 ================================================================================
@@ -435,17 +480,9 @@ mkfs.ext4 /dev/sdb1
 mkdir -p /mnt/udisk
 mount /dev/sdb1 /mnt/udisk
 df -h
-
-export OUT_DIR=/mnt/udisk/out
-
-source build/envsetup.sh
-
-lunch aosp_sailfish-userdebug
-
-export LC_ALL=C
-make -j16
 ~~~
 
+~~~
 apt update
 apt install openssh-server -y
 #systemctl enable ssh
@@ -453,3 +490,4 @@ apt install openssh-server -y
 #systemctl status ssh # 检查 SSH 是否运行
 
 ip addr show
+~~~
