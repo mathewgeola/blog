@@ -416,6 +416,26 @@ Checking for bloat: 100% (48/48), done in 58.724s
 repo sync has finished successfully.
 ~~~
 
+#### 驱动加载
+
+~~~bash
+cd /root/Desktop/data
+
+tar -zxvf google_devices-sailfish-opr1.170623.032-edb989ad.tgz
+tar -zxvf qcom-sailfish-opr1.170623.032-00212902.tgz
+
+mv extract-google_devices-sailfish.sh /root/Desktop/AOSP
+mv extract-qcom-sailfish.sh /root/Desktop/AOSP
+
+cd /root/Desktop/AOSP
+
+./extract-google_devices-sailfish.sh
+I ACCEPT
+
+./extract-qcom-sailfish.sh
+I ACCEPT
+~~~
+
 ### 编译源码
 
 ~~~bash
