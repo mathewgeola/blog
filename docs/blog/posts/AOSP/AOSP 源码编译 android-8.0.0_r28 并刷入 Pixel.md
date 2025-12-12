@@ -301,14 +301,12 @@ apt install openjdk-8-jdk -y
 gedit /etc/java-8-openjdk/security/java.security
 ################################################################################
 # Example:
-#   jdk.certpath.disabledAlgorithms=MD2, DSA, RSA keySize < 2048
-#
-#
-#jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
-#    RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224, \
-#    SHA1 usage SignedJAR & denyAfter 2019-01-01, \
+#   jdk.tls.disabledAlgorithms=MD5, SSLv3, DSA, RSA keySize < 2048
+#jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
+#    DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, \
+#    ECDH, \
 #    include jdk.disabled.namedCurves
-   
+
 jdk.tls.disabledAlgorithms=SSLv3, RC4, DES, MD5withRSA, \
     DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, \
     include jdk.disabled.namedCurves
