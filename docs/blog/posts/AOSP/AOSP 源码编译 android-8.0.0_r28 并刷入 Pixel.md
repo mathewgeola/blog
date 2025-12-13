@@ -389,6 +389,29 @@ ln -s /root/.pyenv/versions/3.6.15/bin/python /usr/bin/python
 ln -s /root/.pyenv/versions/2.7.17/bin/python /usr/bin/python
 ~~~
 
+#### ubuntu 中新增 10G 的 swap
+
+~~~bash
+swapoff /swapfile
+dd if=/dev/zero of=/swapfile bs=1G count=10 status=progress
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
+swapoff -a
+swapon -a
+
+swapon --show
+free -h
+
+cat /proc/sys/vm/swappiness
+
+echo "vm.swappiness=10" | tee /etc/sysctl.conf
+sysctl -p
+
+cat /proc/sys/vm/swappiness
+~~~
+
 ### 下载源码
 
 ~~~bash
