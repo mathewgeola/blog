@@ -76,8 +76,10 @@ Version	                                            Download	                   
 
 -----------------------------------------------------------------------------------------------------------------------
 
-certutil -hashfile sailfish-opr1.170623.032-factory-e011ef43.zip SHA256
-
+>certutil -hashfile sailfish-opr1.170623.032-factory-e011ef43.zip SHA256
+SHA256 的 sailfish-opr1.170623.032-factory-e011ef43.zip 哈希:
+e011ef434ae32e24f14c19d83a859ed76a156209ba4552c393af38f5b1f3efd6
+CertUtil: -hashfile 命令成功完成。
 ~~~
 
 ### VMware Workstation 配置
@@ -437,7 +439,7 @@ Checking for bloat: 100% (48/48), done in 58.724s
 repo sync has finished successfully.
 ~~~
 
-#### 驱动加载
+### 驱动加载
 
 ~~~bash
 cd /root/Desktop/data
