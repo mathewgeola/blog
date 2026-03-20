@@ -9,4 +9,5 @@ nav:
   - 帖子:
       - posts/frida.md
       - posts/adb.md
+      - posts/python.md
   - 关于: about.md
