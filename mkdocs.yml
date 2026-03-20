@@ -7,7 +7,9 @@ site_url: https://mathewgeola.github.io/blog/
 nav:
   - 首页: index.md
   - 帖子:
-      - posts/frida.md
       - posts/adb.md
+      - posts/codex.md
+      - posts/frida.md
       - posts/python.md
+      - posts/windows.md
   - 关于: about.md
