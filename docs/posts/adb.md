@@ -7,6 +7,8 @@ $ adb connect 192.168.5.49:5555
 
 $ adb install 猿人学APP_1.0.55.apk
 
+$ adb shell input text ""
+
 > adb shell dumpsys window | findstr mCurrentFocus
 $ adb shell dumpsys window | grep mCurrentFocus
 
