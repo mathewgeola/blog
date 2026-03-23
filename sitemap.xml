@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://mathewgeola.github.io/blog/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/about/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/posts/adb/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/posts/codex/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/posts/frida/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/posts/python/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+    <url>
+         <loc>https://mathewgeola.github.io/blog/posts/windows/</loc>
+         <lastmod>2026-03-23</lastmod>
+    </url>
+</urlset>
